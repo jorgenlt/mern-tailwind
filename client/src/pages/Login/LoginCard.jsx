@@ -29,11 +29,10 @@ const LoginCard = (props) => {
           Don&apos;t have an account?
           <Typography
             as="a"
-            
             variant="small"
             color="blue-gray"
             className="cursor-pointer ml-1 font-bold"
-            onClick={() => props.handleChangeScreen()}
+            onClick={() => props.toggleScreen()}
           >
             Sign up
           </Typography>

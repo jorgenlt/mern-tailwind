@@ -3,15 +3,19 @@ import LoginCard from "./LoginCard";
 import SignupCard from "./SignupCard";
 
 const Login = () => {
-  const [changeScreen, setChangeScreen] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
-  const handleChangeScreen = () => {
-    setChangeScreen(prevState => !prevState)
-  }
+  const toggleScreen = () => {
+    setIsLogin((prevState) => !prevState);
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      {changeScreen ? <LoginCard handleChangeScreen={handleChangeScreen} /> : <SignupCard handleChangeScreen={handleChangeScreen} />}
+      {isLogin ? (
+        <LoginCard toggleScreen={toggleScreen} />
+      ) : (
+        <SignupCard toggleScreen={toggleScreen} />
+      )}
     </div>
   );
 };

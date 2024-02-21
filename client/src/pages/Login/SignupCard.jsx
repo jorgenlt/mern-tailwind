@@ -28,15 +28,14 @@ const SignupCard = (props) => {
           <Typography variant="small" className="mt-6 flex justify-center">
             Already have an account?{" "}
             <Typography
-            as="a"
-            
-            variant="small"
-            color="blue-gray"
-            className="cursor-pointer ml-1 font-bold"
-            onClick={() => props.handleChangeScreen()}
-          >
-            Sign in
-          </Typography>
+              as="a"
+              variant="small"
+              color="blue-gray"
+              className="cursor-pointer ml-1 font-bold"
+              onClick={() => props.toggleScreen()}
+            >
+              Sign in
+            </Typography>
           </Typography>
         </form>
       </CardBody>
