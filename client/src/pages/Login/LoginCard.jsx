@@ -16,13 +16,13 @@ const LoginCard = (props) => {
       </Typography>
       <CardBody className="flex flex-col gap-4">
         <Input label="Email" size="lg" />
-        <Input label="Password" size="lg" />
+        <Input label="Password" size="lg" type="password"/>
         <div className="-ml-2.5">
           <Checkbox label="Remember Me" />
         </div>
       </CardBody>
       <CardFooter className="pt-0">
-        <Button variant="gradient" fullWidth>
+        <Button variant="gradient" fullWidth type="submit">
           Sign In
         </Button>
         <Typography variant="small" className="mt-6 flex justify-center">
