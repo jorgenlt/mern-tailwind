@@ -6,15 +6,14 @@ import morgan from "morgan";
 // Importing routes and controllers
 import postRoutes from "./routes/posts.js";
 import authRoutes from "./routes/auth.js";
+import userRoutes from "./routes/users.js";
+import { register } from "./controllers/auth.js";
 
-// Importing seeds
-import { users, posts } from "./seeds/seeds.js";
-
-// Importing models
-import User from "./models/User.js";
-import Post from './models/Post.js'
+// Importing seed function
+import { seed } from "./seeds/seed.js";
 
 // Importing middleware
+// import { verifyToken } from "./middleware/auth.js";
 
 // Configuring environment variables and middleware
 dotenv.config();
@@ -23,8 +22,10 @@ app.use(express.json());
 app.use(morgan("common"));
 
 // Defining routes
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
-app.use("/login", authRoutes);
+// app.use("/login", authRoutes);
 
 // Default Route Handler
 app.use((req, res, next) => {
@@ -41,7 +42,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 6001;
 mongoose
   // Local connection
-  .connect("mongodb://localhost:27017/mern-tailwind", {
+  .connect(process.env.MONGO_URL, {
     // Warning: useNewUrlParser is a deprecated option: useNewUrlParser has no effect
     // since Node.js Driver version 4.0.0 and will be removed in the next major version
     // useNewUrlParser: true,
@@ -57,22 +58,8 @@ mongoose
   .then(() => {
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
-    // Uncomment these lines once to add seeds
-    // User.insertMany(users)
-    //   .then(() => {
-    //     console.log("Seeding users completed");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error during seeding of posts:", error);
-    //   });
-
-    // Post.insertMany(posts)
-    //   .then(() => {
-    //     console.log("Seeding posts completed");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error during seeding of posts:", error);
-    //   });
+    // *** Uncomment once to run function to add seeds ***
+    // seed();
   })
   .catch((error) => {
     console.error(`${error} did not connect`);

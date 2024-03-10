@@ -19,11 +19,19 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={isAuth ? <Navigate to="/home" /> : <Login />}
+            // element={isAuth ? <Navigate to="/home" /> : <Login />}
+            element={isAuth ? <Navigate to="/home" /> : <Navigate to="/login" />}
           />
           <Route
             path="/home"
-            element={isAuth ? <Home /> : <Navigate to="/" />}
+            // element={isAuth ? <Home /> : <Navigate to="/" />}
+            element={isAuth ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/login"
+            // element={<Login  />}
+            element={isAuth ? <Navigate to="/home" /> : <Login />}
+
           />
 
           <Route path="*" element={<p>Path not resolved</p>} />
