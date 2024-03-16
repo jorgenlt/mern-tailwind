@@ -21,7 +21,14 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(morgan("common"));
-app.use(cors());
+
+// Configure CORS
+const corsOptions = {
+  origin: 'http://localhost:5173', // Replace with the client-side origin
+  credentials: true, // Allow sending credentials (cookies, headers, etc.)
+};
+
+app.use(cors(corsOptions));
 
 // Defining routes
 app.use("/auth", authRoutes);

@@ -88,6 +88,9 @@ const Login = () => {
 
       if (response.status === 201) {
         console.log("Registration successful:", response.data);
+
+        // Then login the new user
+        login();
       } else {
         console.error("Registration error:", response.data.error);
       }
