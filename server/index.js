@@ -22,16 +22,11 @@ const app = express();
 app.use(express.json());
 app.use(morgan("common"));
 app.use(cors());
-// Configure CORS
-// app.use(cors({
-//   origin: 'http://localhost:5173',
-// }));
 
 // Defining routes
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
-// app.use("/login", authRoutes);
 
 // Default Route Handler
 app.use((req, res, next) => {
