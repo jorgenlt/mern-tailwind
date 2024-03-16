@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // Define post schema with mongoose.Schema function.
-const postSchema = mongoose.Schema(
+const postSchema = new mongoose.Schema(
   {
     // First name: required field, must be a string
     firstName: {

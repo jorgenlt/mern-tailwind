@@ -1,38 +1,50 @@
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import "./App.css";
+import { useSelector } from "react-redux";
 
-function App() {
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+
+const App = () => {
+  const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
-    <>
-      <div className="space-y-10">
-        <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4">
-          <div className="shrink-0">
-            <img className="h-12 w-12" src="/vite.svg" alt="vite" />
-          </div>
-          <div>
-            <div className="text-xl font-medium text-black">mern-tailwind</div>
-            <p className="text-slate-500">mern-tailwind</p>
-          </div>
-        </div>
-
-        <div className="py-8 px-8 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-          <img
-            className="block mx-auto h-24 rounded-full sm:mx-0 sm:shrink-0"
-            src="/vite.svg"
-            alt="Woman's Face"
+    <Router>
+      <>
+        {/* <Nav /> */}
+        <Routes>
+          <Route
+            path="/"
+            // element={isAuth ? <Navigate to="/home" /> : <Login />}
+            element={
+              isAuth ? <Navigate to="/home" /> : <Navigate to="/login" />
+            }
           />
-          <div className="text-center space-y-2 sm:text-left">
-            <div className="space-y-0.5">
-              <p className="text-lg text-black font-semibold">mern-tailwind</p>
-              <p className="text-slate-500 font-medium">mern-tailwind</p>
-            </div>
-            <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-              Message
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
+          <Route
+            path="/home"
+            // element={isAuth ? <Home /> : <Navigate to="/" />}
+            element={isAuth ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/login"
+            // element={<Login  />}
+            element={isAuth ? <Navigate to="/home" /> : <Login />}
+          />
+
+          <Route path="*" element={<p>Path not resolved</p>} />
+        </Routes>
+      </>
+    </Router>
   );
-}
+};
 
 export default App;
+
+{
+  /* <Route path="/" element={isAuth ? <Home /> : <Login />} /> */
+}
