@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, combineReducers } from '@reduxjs/toolkit'
 import {
   persistStore,
   persistReducer,
@@ -21,8 +21,12 @@ const persistConfig = {
   // whitelist: []
 };
 
+const rootReducer = combineReducers({
+  auth: authReducer
+})
+
 // Persisted reducer
-const persistedReducer = persistReducer(persistConfig, authReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
 // Configuring and creating redux store

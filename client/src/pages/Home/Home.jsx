@@ -3,7 +3,7 @@ import { setLogout } from "../Login/authSlice";
 import axios from "axios";
 
 const Home = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.auth.user);
 
   const { firstName, lastName, email } = user || {};
 
