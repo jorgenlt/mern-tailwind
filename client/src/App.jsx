@@ -5,12 +5,13 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
+import { useSelector } from "react-redux";
 
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 
 const App = () => {
-  const isAuth = false;
+  const isAuth = Boolean(useSelector((state) => state.token));
 
   return (
     <Router>
@@ -20,7 +21,9 @@ const App = () => {
           <Route
             path="/"
             // element={isAuth ? <Navigate to="/home" /> : <Login />}
-            element={isAuth ? <Navigate to="/home" /> : <Navigate to="/login" />}
+            element={
+              isAuth ? <Navigate to="/home" /> : <Navigate to="/login" />
+            }
           />
           <Route
             path="/home"
@@ -31,7 +34,6 @@ const App = () => {
             path="/login"
             // element={<Login  />}
             element={isAuth ? <Navigate to="/home" /> : <Login />}
-
           />
 
           <Route path="*" element={<p>Path not resolved</p>} />

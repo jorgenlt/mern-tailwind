@@ -8,9 +8,12 @@ import {
   Button,
 } from "@material-tailwind/react";
 
+import Form from './Form'
+
 const LoginCard = (props) => {
   return (
-    <Card className="w-96">
+    <>
+    {/* <Card className="w-96">
       <Typography variant="h3" color="black">
         Sign in
       </Typography>
@@ -38,7 +41,11 @@ const LoginCard = (props) => {
           </Typography>
         </Typography>
       </CardFooter>
-    </Card>
+    </Card> */}
+
+    <Form />
+    </>
+
   );
 };
 
