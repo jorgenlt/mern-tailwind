@@ -23,8 +23,12 @@ export const register = async (req, res) => {
     // Saving the newly created user to the database
     const savedUser = await newUser.save();
 
+    // Remove the user password before sending a response
+    const userObj = savedUser.toObject(); // Convert to plain js object
+    delete userObj.password;
+
     // Sending a response with the saved user's details
-    res.status(201).json(savedUser);
+    res.status(201).json(userObj);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -39,7 +43,7 @@ export const login = async (req, res) => {
     // Finding a user by email in the db
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(400).json({ msg: "User does not exist." });
+      return res.status(400).json({ msg: "Wrong email or password." });
     }
 
     // Comparing provided password with hashed password in the db

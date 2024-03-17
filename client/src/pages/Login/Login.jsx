@@ -14,11 +14,14 @@ import { setLogin } from "./authSlice";
 import axios from "axios";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
   const [isSignup, setIsSignup] = useState(false);
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,28 +30,17 @@ const Login = () => {
     setIsSignup((prevState) => !prevState);
   };
 
-  const handleFirstNameChange = (e) => {
-    setFirstName(e.target.value);
-  };
-
-  const handleLastNameChange = (e) => {
-    setLastName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   // Function to handle login form submission
   const login = async () => {
     try {
       const response = await axios.post("http://localhost:3001/auth/login", {
-        email,
-        password,
+        email: formData.email,
+        password: formData.password,
       });
 
       if (response.status === 200) {
@@ -61,54 +53,41 @@ const Login = () => {
             user,
           })
         );
-        navigate("/home");
 
-        console.log("Login successful:", user);
+        navigate("/home");
       } else {
         console.error("Login failed:", response.data.error);
       }
-    } catch (error) {
-      console.error("Error occurred during login:", error.response.data);
+    } catch (err) {
+      console.error("An error occurred during login:", err.message);
+      alert(`An error occurred during login: ${err.message}`);
     }
   };
 
   // Function to handle signup form submission
   const signup = async () => {
-    console.log("signup");
-
-    // todo
-
     try {
-      const response = await axios.post("http://localhost:3001/auth/register", {
-        firstName,
-        lastName,
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:3001/auth/register",
+        formData
+      );
 
+      // If signup is successfull, login the user
       if (response.status === 201) {
-        console.log("Registration successful:", response.data);
-
-        // Then login the new user
         login();
       } else {
-        console.error("Registration error:", response.data.error);
+        console.error("Signup failed:", response.data.error);
       }
-    } catch (error) {
-      console.error("Error occurred during registration:", error.response.data);
+    } catch (err) {
+      console.error("An error occurred during signup:", err.message);
+      alert(`An error occurred during signup: ${err.message}`);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("firstName:", firstName);
-    console.log("lastName", lastName);
-    console.log("Email:", email);
-    console.log("Password:", password);
-
     if (isSignup) {
-      console.log("handleSubmit signup");
       await signup();
     } else {
       await login();
@@ -129,15 +108,15 @@ const Login = () => {
                   label="First name"
                   name="firstName"
                   size="lg"
-                  value={firstName}
-                  onChange={handleFirstNameChange}
+                  value={formData.firstName}
+                  onChange={handleInputChange}
                 />
                 <Input
                   label="Last name"
                   name="lastName"
                   size="lg"
-                  value={lastName}
-                  onChange={handleLastNameChange}
+                  value={formData.lastName}
+                  onChange={handleInputChange}
                 />
               </>
             )}
@@ -145,20 +124,20 @@ const Login = () => {
               label="Email"
               name="email"
               size="lg"
-              value={email}
-              onChange={handleEmailChange}
+              value={formData.email}
+              onChange={handleInputChange}
             />
             <Input
               label="Password"
               name="password"
               size="lg"
               type="password"
-              value={password}
-              onChange={handlePasswordChange}
+              value={formData.password}
+              onChange={handleInputChange}
             />
-            <div className="-ml-2.5">
+            {/* <div className="-ml-2.5">
               <Checkbox label="Remember Me" />
-            </div>
+            </div> */}
             <Button variant="gradient" fullWidth type="submit">
               Sign {isSignup ? "up" : "in"}
             </Button>
@@ -167,8 +146,8 @@ const Login = () => {
         <CardFooter className="pt-0">
           <p onClick={toggleScreen}>
             {isSignup
-              ? "Already have an account? Log in"
-              : "Click here to register"}
+              ? "Already have an account? Sign in"
+              : "Click here to sign up"}
           </p>
         </CardFooter>
       </Card>
