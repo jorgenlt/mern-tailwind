@@ -144,11 +144,17 @@ const Login = () => {
           </form>
         </CardBody>
         <CardFooter className="pt-0">
-          <p onClick={toggleScreen}>
-            {isSignup
-              ? "Already have an account? Sign in"
-              : "Click here to sign up"}
-          </p>
+          <Typography
+          as="a"
+          href="#"
+          className="transition-colors hover:text-blue-500"
+          >
+            <a onClick={toggleScreen}>
+              {isSignup
+                ? "Already have an account? Sign in"
+                : "Click here to sign up"}
+            </a>
+          </Typography>
         </CardFooter>
       </Card>
     </div>

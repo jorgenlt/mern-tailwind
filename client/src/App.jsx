@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
+import StickyNavbar from "./components/StickyNavbar/StickyNavbar";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -16,8 +18,7 @@ const App = () => {
 
   return (
     <Router>
-      <>
-        {/* <Nav /> */}
+        {isAuth && <StickyNavbar />}
         <Routes>
           <Route
             path="/"
@@ -39,7 +40,7 @@ const App = () => {
 
           <Route path="*" element={<p>Path not resolved</p>} />
         </Routes>
-      </>
+        {isAuth && <Footer  />}
     </Router>
   );
 };
