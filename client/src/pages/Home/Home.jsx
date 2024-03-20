@@ -1,3 +1,4 @@
+import { Typography } from "@material-tailwind/react";
 import { useSelector } from "react-redux";
 
 const Home = () => {
@@ -6,19 +7,22 @@ const Home = () => {
   const { firstName, lastName, email } = user || {};
 
   return (
-    <div>
-      <h1>Home.jsx</h1>
-
-      <br />
-
-      <h1>Logged in as:</h1>
-      <p>
-        {firstName} {lastName}
-      </p>
-      <p>{email}</p>
-
-      <br />
-    </div>
+    <>
+      <div className="py-12">
+        <Typography variant="h1" className="text-center">
+          mern-tailwind + auth
+        </Typography>
+      </div>
+      <div className="flex flex-col">
+        <Typography>
+          Signed is as{" "}
+          <span className="capitalize font-bold">
+            {firstName} {lastName}
+          </span>{" "}
+          with email <span className="font-bold">{email}</span>.
+        </Typography>
+      </div>
+    </>
   );
 };
 

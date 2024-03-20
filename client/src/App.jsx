@@ -18,7 +18,9 @@ const App = () => {
 
   return (
     <Router>
-        {isAuth && <StickyNavbar />}
+      {isAuth && <StickyNavbar />}
+
+      <div className={isAuth ? "py-20 px-8 min-h-screen" : ""}>
         <Routes>
           <Route
             path="/"
@@ -40,7 +42,9 @@ const App = () => {
 
           <Route path="*" element={<p>Path not resolved</p>} />
         </Routes>
-        {isAuth && <Footer  />}
+      </div>
+
+      {isAuth && <Footer />}
     </Router>
   );
 };

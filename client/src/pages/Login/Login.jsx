@@ -96,7 +96,7 @@ const Login = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <Card className="w-96">
+      <Card className="p-10">
         <Typography variant="h3" color="black">
           Sign {isSignup ? "up" : "in"}
         </Typography>
@@ -145,14 +145,14 @@ const Login = () => {
         </CardBody>
         <CardFooter className="pt-0">
           <Typography
-          as="a"
-          href="#"
-          className="transition-colors hover:text-blue-500"
+            as="a"
+            href="#"
+            className="transition-colors hover:text-blue-500"
           >
             <a onClick={toggleScreen}>
               {isSignup
                 ? "Already have an account? Sign in"
-                : "Click here to sign up"}
+                : "Don't have an accont? Click here to sign up"}
             </a>
           </Typography>
         </CardFooter>
