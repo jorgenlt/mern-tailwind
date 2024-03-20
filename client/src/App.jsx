@@ -11,6 +11,7 @@ import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import StickyNavbar from "./components/StickyNavbar/StickyNavbar";
 import Footer from "./components/Footer/Footer";
+import User from "./pages/User/User";
 
 const App = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -32,6 +33,10 @@ const App = () => {
           <Route
             path="/login"
             element={isAuth ? <Navigate to="/home" /> : <Login />}
+          />
+          <Route
+            path="/users/:userId"
+            element={<User />}
           />
           <Route
             path="*"

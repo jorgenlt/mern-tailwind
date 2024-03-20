@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const user = useSelector((state) => state.auth.user);
 
-  const { firstName, lastName, email } = user || {};
+  const { firstName, lastName, email, _id } = user || {};
 
   return (
     <>
@@ -19,7 +19,8 @@ const Home = () => {
           <span className="capitalize font-bold">
             {firstName} {lastName}
           </span>{" "}
-          with email <span className="font-bold">{email}</span>.
+          with email <span className="font-bold">{email}</span>. The user id is{" "}
+          <span className="font-bold">{_id}</span>.
         </Typography>
       </div>
     </>
