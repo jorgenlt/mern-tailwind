@@ -145,7 +145,6 @@ const Login = () => {
         </CardBody>
         <CardFooter className="pt-0">
           <Typography
-            as="a"
             href="#"
             className="transition-colors hover:text-blue-500"
           >

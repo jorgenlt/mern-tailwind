@@ -14,7 +14,6 @@ import Footer from "./components/Footer/Footer";
 
 const App = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
-  console.log("isAuth:", isAuth);
 
   return (
     <Router>
@@ -24,23 +23,20 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            // element={isAuth ? <Navigate to="/home" /> : <Login />}
-            element={
-              isAuth ? <Navigate to="/home" /> : <Navigate to="/login" />
-            }
+            element={<Navigate to={isAuth ? "/home" : "/login"} />}
           />
           <Route
             path="/home"
-            // element={isAuth ? <Home /> : <Navigate to="/" />}
-            element={isAuth ? <Home /> : <Navigate to="/login" />}
+            element={isAuth ? <Home /> : <Navigate to="/login" replace />}
           />
           <Route
             path="/login"
-            // element={<Login  />}
             element={isAuth ? <Navigate to="/home" /> : <Login />}
           />
-
-          <Route path="*" element={<p>Path not resolved</p>} />
+          <Route
+            path="*"
+            element={<Navigate to={isAuth ? "/home" : "/login"} replace />}
+          />
         </Routes>
       </div>
 
@@ -50,7 +46,3 @@ const App = () => {
 };
 
 export default App;
-
-{
-  /* <Route path="/" element={isAuth ? <Home /> : <Login />} /> */
-}
