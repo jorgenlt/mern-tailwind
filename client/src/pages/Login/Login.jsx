@@ -12,6 +12,7 @@ import {
 } from "@material-tailwind/react";
 import { setLogin } from "./authSlice";
 import axios from "axios";
+import { BASE_API_URL } from "../../app/config";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -38,7 +39,9 @@ const Login = () => {
   // Function to handle login form submission
   const login = async () => {
     try {
-      const response = await axios.post("http://localhost:3001/auth/login", {
+      const url = `${BASE_API_URL}/auth/login`;
+
+      const response = await axios.post(url, {
         email: formData.email,
         password: formData.password,
       });
