@@ -7,7 +7,6 @@ import {
   CardFooter,
   Typography,
   Input,
-  Checkbox,
   Button,
 } from "@material-tailwind/react";
 import { setLogin } from "./authSlice";
@@ -15,19 +14,21 @@ import axios from "axios";
 import { BASE_API_URL } from "../../app/config";
 
 const Login = () => {
+  const [isSignup, setIsSignup] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
-
-  const [isSignup, setIsSignup] = useState(false);
+  const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const toggleScreen = () => {
+    setError(null);
     setIsSignup((prevState) => !prevState);
   };
 
@@ -50,40 +51,46 @@ const Login = () => {
         // Store the JWT and user data in your application's state or local storage
         const { token, user } = response.data;
 
-        dispatch(
-          setLogin({
-            token,
-            user,
-          })
-        );
+        dispatch(setLogin({ token, user }));
 
         navigate("/home");
-      } else {
-        console.error("Login failed:", response.data.error);
       }
     } catch (err) {
+      setError("Wrong email or password");
       console.error("An error occurred during login:", err.message);
-      alert(`An error occurred during login: ${err.message}`);
     }
   };
 
   // Function to handle signup form submission
   const signup = async () => {
+    const { firstName, lastName, email, password, confirmPassword } = formData;
+
+    // Check if any required fields are missing
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
+    // Additional password validation
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    } else if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
+
     try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/register",
-        formData
-      );
+      const url = `${BASE_API_URL}/auth/register`;
+      const response = await axios.post(url, formData);
 
       // If signup is successfull, login the user
       if (response.status === 201) {
         login();
-      } else {
-        console.error("Signup failed:", response.data.error);
       }
     } catch (err) {
       console.error("An error occurred during signup:", err.message);
-      alert(`An error occurred during signup: ${err.message}`);
+      setError(`An error occurred during signup: ${err.message}`);
     }
   };
 
@@ -91,6 +98,8 @@ const Login = () => {
     e.preventDefault();
 
     if (isSignup) {
+      setError(null);
+
       await signup();
     } else {
       await login();
@@ -100,11 +109,14 @@ const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <Card className="p-10">
-        <Typography variant="h3" color="black">
-          Sign {isSignup ? "up" : "in"}
-        </Typography>
         <CardBody>
+          <Typography variant="h3" color="black" className="pb-8">
+            Sign {isSignup ? "up" : "in"}
+          </Typography>
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            {error && (
+              <Typography className="text-red-500 text-sm">{error}</Typography>
+            )}
             {isSignup && (
               <>
                 <Input
@@ -138,9 +150,16 @@ const Login = () => {
               value={formData.password}
               onChange={handleInputChange}
             />
-            {/* <div className="-ml-2.5">
-              <Checkbox label="Remember Me" />
-            </div> */}
+            {isSignup && (
+              <Input
+                label="Confirm password"
+                name="confirmPassword"
+                size="lg"
+                type="password"
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+              />
+            )}
             <Button variant="gradient" fullWidth type="submit">
               Sign {isSignup ? "up" : "in"}
             </Button>
@@ -150,12 +169,12 @@ const Login = () => {
           <Typography
             href="#"
             className="transition-colors hover:text-blue-500"
+            as="a"
+            onClick={toggleScreen}
           >
-            <a onClick={toggleScreen}>
-              {isSignup
-                ? "Already have an account? Sign in"
-                : "Don't have an accont? Click here to sign up"}
-            </a>
+            {isSignup
+              ? "Already have an account? Sign in"
+              : "Don't have an account? Click here to sign up"}
           </Typography>
         </CardFooter>
       </Card>
