@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setLogout } from "../../pages/Login/authSlice";
 
@@ -18,6 +18,7 @@ const StickyNavbar = () => {
   const userId = useSelector((state) => state.auth.user._id);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logout = async () => {
     try {
@@ -32,7 +33,7 @@ const StickyNavbar = () => {
       if (response.status === 200) {
         console.log(response.data.msg);
         dispatch(setLogout());
-        alert("Logged out successfully");
+        navigate("/login");
       } else {
         console.error("Registration error:", response.data.error);
       }
