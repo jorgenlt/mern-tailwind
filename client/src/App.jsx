@@ -12,6 +12,7 @@ import Login from "./pages/Login/Login";
 import StickyNavbar from "./components/StickyNavbar/StickyNavbar";
 import Footer from "./components/Footer/Footer";
 import User from "./pages/User/User";
+import Posts from "./pages/Posts/Posts";
 
 const App = () => {
   const isAuth = useSelector((state) => state.auth.isAuth);
@@ -33,6 +34,10 @@ const App = () => {
           <Route
             path="/login"
             element={isAuth ? <Navigate to="/home" /> : <Login />}
+          />
+          <Route 
+            path="/posts"
+            element={<Posts />}
           />
           <Route
             path="/users/:userId"

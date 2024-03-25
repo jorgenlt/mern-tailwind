@@ -69,18 +69,18 @@ const StickyNavbar = () => {
         variant="small"
         color="blue-gray"
         className="p-1 font-normal transition-colors hover:text-blue-500 focus:text-blue-500 cursor-pointer"
-        onClick={() => handleNavigation(`/users/${userId}`)}
+        onClick={() => handleNavigation("/posts")}
       >
-        Account
+        Posts
       </Typography>
       <Typography
         as="li"
         variant="small"
         color="blue-gray"
         className="p-1 font-normal transition-colors hover:text-blue-500 focus:text-blue-500 cursor-pointer"
-        onClick={() => handleNavigation("/home")}
+        onClick={() => handleNavigation(`/users/${userId}`)}
       >
-        Docs
+        Account
       </Typography>
     </ul>
   );
