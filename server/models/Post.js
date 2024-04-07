@@ -3,23 +3,27 @@ import mongoose from "mongoose";
 // Define post schema with mongoose.Schema function.
 const postSchema = new mongoose.Schema(
   {
-    // First name: required field, must be a string
+    userId: {
+      type: String,
+      required: true,
+    },
     firstName: {
       type: String,
       required: true,
     },
-    // Last name: required field, must be a string
     lastName: {
       type: String,
       required: true,
     },
-    // Content: required field, must be a string
+    title: {
+      type: String,
+      required: true,
+    },
     content: {
       type: String,
       required: true,
     },
   },
-  // Automatically include createdAt and updatedAt fields
   { timestamps: true }
 );
 

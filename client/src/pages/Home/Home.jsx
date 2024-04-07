@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       <div className="py-12">
-        <Typography variant="h1" className="text-center">
+        <Typography variant="h1">
           mern-tailwind + auth
         </Typography>
       </div>

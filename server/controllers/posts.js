@@ -4,7 +4,7 @@ import Post from "../models/Post.js";
 export const createPost = async (req, res) => {
   try {
     // Get information from the request body
-    const { firstName, lastName, content } = req.body;
+    const { userId, firstName, lastName, title, content } = req.body;
 
     // Validate data
     if (!firstName || !lastName || !content) {
@@ -13,8 +13,10 @@ export const createPost = async (req, res) => {
 
     // Creating a new post
     const newPost = new Post({
+      userId,
       firstName,
       lastName,
+      title,
       content,
     });
 

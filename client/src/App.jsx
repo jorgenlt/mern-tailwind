@@ -21,7 +21,7 @@ const App = () => {
     <Router>
       {isAuth && <StickyNavbar />}
 
-      <div className={isAuth ? "py-20 px-8 min-h-screen" : ""}>
+      <div className={isAuth ? "py-20 px-8 min-h-screen self-center" : ""}>
         <Routes>
           <Route
             path="/"

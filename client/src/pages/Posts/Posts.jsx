@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { BASE_API_URL } from "../../app/config";
 import axios from "axios";
+import { format } from "date-fns";
 
 const Posts = () => {
   const [title, setTitle] = useState("");
@@ -27,9 +28,10 @@ const Posts = () => {
   const postElements =
     posts?.map((post) => (
       <div key={post._id}>
-        <Typography className="font-bold">{post._id}</Typography>
-        <Typography>
-          {post.firstName} {post.lastName}
+        <Typography className="font-bold">{post.title}</Typography>
+        <Typography className="text-sm pb-2">
+          {post.firstName} {post.lastName},{" "}
+          {format(post.createdAt, "MMM dd yyyy, HH:mm")}
         </Typography>
         <Typography>{post.content}</Typography>
       </div>
@@ -41,12 +43,14 @@ const Posts = () => {
       setPostError("Please fill in all required fields");
       return;
     }
-
+    console.log(userId, firstName, lastName, title, content);
     try {
       const url = `${BASE_API_URL}/posts`;
       const response = await axios.post(url, {
+        userId,
         firstName,
         lastName,
+        title,
         content,
       });
 
@@ -58,7 +62,7 @@ const Posts = () => {
       }
     } catch (err) {
       console.error("An error occurred:", err.message);
-      setError(`An error occurred: ${err.message}`);
+      setPostError(`An error occurred: ${err.message}`);
     }
   };
 
@@ -68,13 +72,9 @@ const Posts = () => {
     createPost();
   };
   return (
-    <>
+    <div className="max-w-lg">
       {isLoading && <Spinner />}
-      {error && (
-        <Typography>
-          An error occured when getting the user information: {error}
-        </Typography>
-      )}
+      {error && <Typography>An error occured: {error}</Typography>}
 
       <div>
         <Typography variant="h1" className="py-8">
@@ -105,9 +105,9 @@ const Posts = () => {
         <Typography variant="h1" className="py-8">
           All posts
         </Typography>
-        <div className="flex flex-col gap-4">{postElements}</div>
+        <div className="flex flex-col gap-6">{postElements}</div>
       </div>
-    </>
+    </div>
   );
 };
 
