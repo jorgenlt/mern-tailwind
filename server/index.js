@@ -1,5 +1,5 @@
 import express from "express";
-import cors from 'cors'
+import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import morgan from "morgan";
@@ -24,7 +24,7 @@ app.use(morgan("common"));
 
 // Configure CORS
 const corsOptions = {
-  origin: 'http://localhost:5173', // Replace with the client-side origin
+  origin: "http://localhost:5173", // Replace with the client-side origin
   credentials: true, // Allow sending credentials (cookies, headers, etc.)
 };
 
