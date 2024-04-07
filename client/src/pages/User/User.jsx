@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import useGetUser from "../../hooks/useGetUser";
-import { Spinner, Typography } from "@material-tailwind/react";
+import { Typography } from "@material-tailwind/react";
+import Loader from "../../components/Loader/Loader";
 
 const User = () => {
   const { userId } = useParams();
@@ -8,7 +9,7 @@ const User = () => {
 
   return (
     <>
-      {isLoading && <Spinner />}
+      {isLoading && <Loader />}
       {error && (
         <Typography>
           An error occured when getting the user information: {error}

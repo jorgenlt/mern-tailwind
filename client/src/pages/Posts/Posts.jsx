@@ -3,10 +3,10 @@ import useGetPosts from "../../hooks/useGetPosts";
 import {
   Button,
   Input,
-  Spinner,
   Textarea,
   Typography,
 } from "@material-tailwind/react";
+import Loader from '../../components/Loader/Loader'
 import { useSelector } from "react-redux";
 import { BASE_API_URL } from "../../app/config";
 import axios from "axios";
@@ -73,7 +73,7 @@ const Posts = () => {
   };
   return (
     <div className="max-w-lg">
-      {isLoading && <Spinner />}
+      {isLoading && <Loader />}
       {error && <Typography>An error occured: {error}</Typography>}
 
       <div>
