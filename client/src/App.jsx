@@ -37,11 +37,11 @@ const App = () => {
           />
           <Route 
             path="/posts"
-            element={<Posts />}
+            element={isAuth ? <Posts /> : <Navigate to="/login" replace/>}
           />
           <Route
             path="/users/:userId"
-            element={<User />}
+            element={isAuth ? <User /> : <Navigate to="/login" replace />}
           />
           <Route
             path="*"
