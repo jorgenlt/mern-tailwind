@@ -1,4 +1,4 @@
-# MERN with authentication and Tailwind CSS
+# MERN-app with authentication and Tailwind CSS
 ## Features
 * Register new user
 * Sign in
