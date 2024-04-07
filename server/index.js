@@ -13,9 +13,6 @@ import { register } from "./controllers/auth.js";
 // Importing seed function
 import { seed } from "./seeds/seed.js";
 
-// Importing middleware
-// import { verifyToken } from "./middleware/auth.js";
-
 // Configuring environment variables and middleware
 dotenv.config();
 const app = express();
